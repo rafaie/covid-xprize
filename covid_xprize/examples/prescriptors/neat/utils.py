@@ -125,7 +125,7 @@ def get_predictions(start_date_str, end_date_str, pres_df, countries=None):
             # Run script to generate predictions
             output_str = subprocess.check_output(
                 [
-                    'python', PREDICT_MODULE,
+                    'python3', PREDICT_MODULE,
                     '--start_date', start_date_str,
                     '--end_date', end_date_str,
                     '--interventions_plan', tmp_ips_file.name,

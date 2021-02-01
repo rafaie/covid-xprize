@@ -2,6 +2,9 @@
 
 import argparse
 import os
+import sys
+sys.path.append(os.getcwd())
+print(sys.path)
 
 from covid_xprize.standard_predictor.xprize_predictor import XPrizePredictor
 

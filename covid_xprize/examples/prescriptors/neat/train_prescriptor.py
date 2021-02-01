@@ -11,6 +11,9 @@ import neat
 import numpy as np
 import pandas as pd
 from pathlib import Path
+import sys
+sys.path.append(os.getcwd())
+print(sys.path)
 
 from covid_xprize.examples.prescriptors.neat.utils import PRED_CASES_COL, prepare_historical_df, CASES_COL, IP_COLS, \
     IP_MAX_VALUES, add_geo_id, get_predictions
@@ -29,8 +32,9 @@ CUTOFF_DATE = '2020-07-31'
 # Range of days the prescriptors will be evaluated on.
 # To save time during training, this range may be significantly
 # shorter than the maximum days a prescriptor can be evaluated on.
-EVAL_START_DATE = '2020-08-01'
-EVAL_END_DATE = '2020-08-02'
+# TODO: Update evaluation date
+EVAL_START_DATE = '2021-01-01'
+EVAL_END_DATE = '2021-01-27'
 
 # Number of days the prescriptors will look at in the past.
 # Larger values here may make convergence slower, but give
@@ -38,11 +42,13 @@ EVAL_END_DATE = '2020-08-02'
 # network will be NB_LOOKBACK_DAYS * (IP_COLS + 1) + IP_COLS.
 # The '1' is for previous case data, and the final IP_COLS
 # is for IP cost information.
+# TODO: Update to 28
 NB_LOOKBACK_DAYS = 14
 
 # Number of countries to use for training. Again, lower numbers
 # here will make training faster, since there will be fewer
 # input variables, but could potentially miss out on useful info.
+# TODO: Update to  .... ?
 NB_EVAL_COUNTRIES = 10
 
 
@@ -187,9 +193,10 @@ def eval_genomes(genomes, config):
 
 
 # Load configuration.
+config_prescriptor_path= os.path.join(os.path.dirname(__file__), 'config-prescriptor')
 config = neat.Config(neat.DefaultGenome, neat.DefaultReproduction,
                      neat.DefaultSpeciesSet, neat.DefaultStagnation,
-                     NEAT_CONFIG_FILE)
+                     config_prescriptor_path)
 
 # Create the population, which is the top-level object for a NEAT run.
 p = neat.Population(config)
