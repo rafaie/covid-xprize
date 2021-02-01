@@ -33,8 +33,8 @@ CUTOFF_DATE = '2020-07-31'
 # To save time during training, this range may be significantly
 # shorter than the maximum days a prescriptor can be evaluated on.
 # TODO: Update evaluation date
-EVAL_START_DATE = '2021-01-01'
-EVAL_END_DATE = '2021-01-27'
+EVAL_START_DATE = '2020-11-01'
+EVAL_END_DATE = '2021-01-26'
 
 # Number of days the prescriptors will look at in the past.
 # Larger values here may make convergence slower, but give
@@ -183,8 +183,10 @@ def eval_genomes(genomes, config):
         # function can lead directly to the degenerate solution of all ips 0, i.e.,
         # stringency zero. To achieve more interesting behavior, a different fitness
         # function may be required.
-        new_cases = pred_df[PRED_CASES_COL].mean().mean()
-        genome.fitness = -(new_cases * stringency)
+        # new_cases = pred_df[PRED_CASES_COL].mean().mean()
+        geo_country_list = list(pres_df.CountryName.unique())
+        new_cases = pred_df[pred_df.CountryName.isin(geo_country_list)][PRED_CASES_COL].mean().mean()
+        genome.fitness = -np.exp(new_cases/2500) * np.exp(stringency/500)
 
         print('Evaluated Genome', genome_id)
         print('New cases:', new_cases)
