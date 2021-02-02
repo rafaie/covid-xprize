@@ -8,6 +8,7 @@ import pandas as pd
 from pathlib import Path
 
 from covid_xprize.validation.scenario_generator import get_raw_data, generate_scenario
+from covid_xprize.standard_predictor.predict import predict
 
 # URL for Oxford data
 DATA_URL = "https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest.csv"
@@ -138,6 +139,8 @@ def get_predictions(start_date_str, end_date_str, pres_df, countries=None):
             print(output_str.decode("utf-8"))
 
             # Load predictions to return
+            # print(f"Generating predictions from {start_date_str} to {start_date_str} from {tmp_ips_file.name} ...")
+            # predict(start_date_str, start_date_str, tmp_ips_file.name, tmp_pred_file.name)
             df = pd.read_csv(tmp_pred_file)
 
     return df
