@@ -9,6 +9,8 @@ from copy import deepcopy
 from datetime import datetime
 
 import neat
+import sys
+sys.path.append(os.getcwd())
 
 # Function imports from utils
 from pathlib import Path
